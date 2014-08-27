@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'key' => 'MlMQGV7jloRMugke9jzLLJDRp7k1Vo24',
+	'key' => 'MlMQGV7jloRMugke9jzLLJDRp7k1Vo24', //32 characters for hashing
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
