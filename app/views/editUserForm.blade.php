@@ -2,23 +2,17 @@
 <!-- . is a slash / -->
 
 @section('content')
-<h2>Register New Account</h2>
+<h2>Edit User Details</h2>
 
-{{ Form::open(array('url' => 'users')) }}
+{{ Form::model($user, array('url' => 'users/'.$user->id, 'method'=>'put')) }} <!--use Form::model it will know to map to the user model-->
+<!-- add in the user id into the PUT method - viewSource: laravel simulates the PUT method for you. YOu can do ajax to do a native PUT/GET/POST/DELETE <input name="_method" type="hidden" value="PUT"><input name="_token" type="hidden" -->
 		
 
 		{{Form::label('username', 'Username');}}
-		{{Form::text('username');}}
+		{{Form::text('username', $user->username, array(
+			'disabled'=>'disabled'))}}  <!-- //disables this text input 1st feild is the controller, 2nd is default value 3rd is the attribute-->
 		<!-- //$errors is already in laravel documentation -->
 		{{$errors->first('username','<p class="error">:message</p>')}} <!-- mulitple checks for input ie. submission required and if they re-enter again and its wrong then a second error message pops up -->
-
-		{{Form::label('password', 'Password');}}
-		{{Form::password('password');}}
-		{{$errors->first('password','<p class="error">:message</p>')}} <!-- //error message is built into laravel - you can change the password as well.. -->
-
-		{{Form::label('password_confirmation', 'Confirm Password');}}
-		{{Form::password('password_confirmation');}}
-		{{$errors->first('password_confirmation','<p class="error">:message</p>')}}
 
 		{{Form::label('firstname', 'First Name');}}
 		{{Form::text('firstname');}}
@@ -32,8 +26,8 @@
 		{{Form::text('email');}}
 		{{$errors->first('email','<p class="error">:message</p>')}}
 
-		{{Form::reset('Reset');}}
-		{{Form::submit('Sign up');}}
+		{{Form::submit('Update');}}
+		
 	
 {{ Form::close() }}
 

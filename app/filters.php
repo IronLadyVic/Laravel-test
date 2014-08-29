@@ -13,13 +13,32 @@
 
 App::before(function($request)
 {
-	//
+	//you have to apply this to the route.
+	// if(there is no cart in session){
+	// 	then create cart and store to session
+
+	// }else{
+
+	// }
+	if(Session::has("cart")==false){ //or !Session (! = not)::has('cart')
+		
+		$oCart = new Cart(); //we assume the cart model can be found. otherwise have to find a link to the bootstrap
+		$oCart->addProduct(1,3); //testing
+		$oCart->addProduct(2,2); //testing
+		$oCart->addProduct(5,4);
+		Session::put("cart",$oCart);
+
+
+	}
+
+
 });
+
 
 
 App::after(function($request, $response)
 {
-	//
+	//you have to apply this to the route.
 });
 
 /*
