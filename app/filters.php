@@ -23,9 +23,9 @@ App::before(function($request)
 	if(Session::has("cart")==false){ //or !Session (! = not)::has('cart')
 		
 		$oCart = new Cart(); //we assume the cart model can be found. otherwise have to find a link to the bootstrap
-		$oCart->addProduct(1,3); //testing
-		$oCart->addProduct(2,2); //testing
-		$oCart->addProduct(5,4);
+		//$oCart->addProduct(1,3); //testing
+		///$oCart->addProduct(2,2); //testing
+		//$oCart->addProduct(5,4);
 		Session::put("cart",$oCart);
 
 

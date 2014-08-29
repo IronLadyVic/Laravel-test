@@ -207,10 +207,12 @@ Route::get('logout',function(){
 Route::post('orderlines',function(){
 
 	//get productID
-
+	$iProductID = Input::get("productID");
 	//Add productID to cart
 	Session::get('cart')->addProduct(Input::get("productID"),1); //will give you the session of the shopping cart & Add productID to cart
 	//Redirect back to the product page
+	$oProduct = Product::find($iProductID);
+	return Redirect::to("types/".$oProduct->type_id);
 
 });
 
