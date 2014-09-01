@@ -96,7 +96,7 @@ Route::post('users',function(){
 		//create new user
 		$aDetails = Input::all();
 		$aDetails["password"] = Hash::make($aDetails["password"]); //hash is in app/config/app.php
-		User::create($aDetails);
+		User::create($aDetails); //User has autofill, we need certain fields to be filled (factory pattern)
 
 		return Redirect::to("types/1");
 	}
@@ -215,6 +215,39 @@ Route::post('orderlines',function(){
 	return Redirect::to("types/".$oProduct->type_id);
 
 });
+
+Route::get('cart',function(){
+
+	return View::make("cart")->with('cart',Session::get('cart')); //'cart' comes from $oCart object and passed into the session to be stored into the view. 
+
+});
+
+Route::post('orders',function(){
+
+	//Create new order
+	$oOrder = new Order(); //use the constructor pattern 
+
+	$oOrder->status = "pending";
+	$oOrder->user_id = Auth::user()->id; //use Auth because user is stored into the session.
+	$oOrder->save();
+
+	//shgopping cart has a getter called contents. and the array has keys and values
+	//Add orderlines
+	foreach(Session::get('cart')->contents as $productID=>$quantity){
+
+		//loop through contents of cart and inserts into the table of the cart
+	// So at the moment we are attach 
+	$oOrder->products()->attach($productID, array('quantity'=>$quantity)); //mulitple operations that happen together, then it is called a trasaction. this is not currently safe.
+	//at the moment. you can use Database transactions in Laravel - it will treat it as an operation with database transactions.
+	}
+
+	Session::put("cart", new Cart()); //empty the old cart after checkout. Address, once compltee set a set up to send to paypal and once it goes through you checkout.
+
+
+	//Save the order and orderlines to the database
+	return Redirect::to('types/1');
+
+})->before("auth");
 
 
 //Tokin, when you ask laravel to submit a form, it injects tokin and protects highjackers - filtering input. It is invisiable to us, but you can see it in view source.

@@ -61,7 +61,7 @@
 				<li><a href="{{URL::to('logout')}}">Logout<i class="icon-lock"></i></a></li>
 
 				@endif
-				<li><a href="">{{array_sum(Session::get('cart')->contents)}} items<i class="icon-shopping-cart"></i></a></li>
+				<li><a href="{{URL::to('cart')}}">{{array_sum(Session::get('cart')->contents)}} items<i class="icon-shopping-cart"></i></a></li>
 				<!-- //contents will give us an array of contents when the session cart has started.
 				we want to sum up the contents in the cart. Provide the cart in the autoload()
 				 -->
