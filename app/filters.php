@@ -56,15 +56,35 @@ Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
+		//minupulate intended url if HTTP methods are not GET
+		if(Request::server("REQUEST_METHOD")=="GET"{
+			//asking the server on the request what is the html method you are dealing with here? it is a GET. REcored the current URL ie. users/2. 
+			//so once they are logging in and logged in, they are redirected back tothe intended URL.
+			Session::put("url.intended",URL::current()); //the intended URL is flash data and saved into the Session
+
+		}else{
+			Session::put("url.intended",URL::previous()); //redirect back to the intended
+
 		}
-		else
-		{
+
 			return Redirect::guest('login');
 		}
 	}
+});
+
+Route::filter('authorisation', function($route, $request, $authorisedID)
+
+{//find out if user is the authorised user if not kick them out//////////////1. Route 2.Request from user 3.authorised is the ID of the user
+
+
+	if(Auth::user()->id != $authorisedID){
+		return Redirect::to('login'); //if they are not a user, then kick them out
+
+	}
+
+	//now apply this filter to the UserController.php
+	
+
 });
 
 

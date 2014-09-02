@@ -1,5 +1,5 @@
 <?php
-
+//THIS IS JUST A EDITING PHASE BEFORE YOU MOVE YOUR RESOURCE ROUTES INTO SEPEARATE CONTROLLERS.
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -54,121 +54,81 @@ Route::get('types/{id}',function($id){
 });
 
 // get(this is the resource for the URL)
-Route::get('users/new',function(){
+//Route::get('users/new',function(){
 
-	return View::make("newUserForm");
+	
 
 
-});
+//});
 
-Route::post('users',function(){
+//Route::post('users',function(){
 	//write seudo code here
 
-	//validate input on form
 
-	$aRules = array(
-		//these are attributes
-		"username" => "required|unique:users", //now check for unique username in the users table
-		"password" => "required|confirmed", //this helps with password confirmation
-		"firstname" => "required",
-		"lastname" => "required",
-		"email" => "required|email|unique:users"
-		//factory pattern - similar to javascript layout. You would say these are the property rules in the array
-		);
-	$aUserInput = Input::all(); //this is the post data
-	$messages = array(
-		'email' => 'your freaken email is wrong.', //you could use an attribute name sticky data from username to tell the user their email is incorrect attribute:username
-		'required' => 'Dont forget :attribute');
-	//$_REQUEST -contains all the information, the $_GET the $_DATA.
 
-	$oValidator = Validator::make($aUserInput, $aRules, $messages);
-
-	if($oValidator->fails()){
-		//is the validator->fails(true) - so it fails you redirect the user back to the new users form
-		//redirect to users/new with sticky data and errors message
-		return Redirect::to("users/new")->withErrors($oValidator)
-		->withInput(); //this will detect to see what is the current inputs are and pass that on - this is called 'Session Flash' - all framework terms use this
-		//1. Input is put in by user
-		//2. Validator kicks in
-		//3. detects errors in OValidator
-		//4. sends back to URL users/new 
-	}else{
-		//create new user
-		$aDetails = Input::all();
-		$aDetails["password"] = Hash::make($aDetails["password"]); //hash is in app/config/app.php
-		User::create($aDetails); //User has autofill, we need certain fields to be filled (factory pattern)
-
-		return Redirect::to("types/1");
-	}
-
-	//if(not valid){
-		//redirect to users/new with sticky data and errors message
-	//}else{
-		//create new user
-		//redirect home page
-	//}
-
-});
+//});
 
 
 
-Route::get('users/{id}',function($id){
+//Route::get('users/{id}',function($id){
 
-	$oUser = User::find($id);
+	//$oUser = User::find($id);
 
-	return View::make("userDetails")->with("user", $oUser); //"user" is the object assigned to the varible name $ouser. Every time you call view::user is referring to the object
+	//return View::make("userDetails")->with("user", $oUser); //"user" is the object assigned to the varible name $ouser. Every time you call view::user is referring to the object
 
-})->before("auth"); //auth this is in laravel. if the auth returns false, there is a user. if it returns true, there is no filter. Ajax.
+//})->before("auth"); //auth this is in laravel. if the auth returns false, there is a user. if it returns true, there is no filter. Ajax.
 
 
 
 
 
-Route::get('users/{id}/edit',function($id){
+//Route::get('users/{id}/edit',function($id){
 	//allow sticky data to you are able to edit the data
-	$oUser = User::find($id);
+	//$oUser = User::find($id);
 
-	return View::make("editUserForm")->with("user", $oUser);
+	//return View::make("editUserForm")->with("user", $oUser);
 	//now bind one by one for each input
 
-})->before("auth");
+//})->before("auth");
 
 
 
 
-Route::put('users/{id}',function($id){
+//Route::put('users/{id}',function($id){
 
 	//validate data
-	$aRules = array(
+	//$aRules = array(
 
-	"firstname" => 'required',
-	"lastname" => 'required',
-	"email" => 'required|email|unique:users,email,'.$id);
+	//"firstname" => 'required',
+	//"lastname" => 'required',
+	//"email" => 'required|email|unique:users,email,'.$id);
 
-	$oValidator = Validator::make(Input::all(),$aRules);
+	//$oValidator = Validator::make(Input::all(),$aRules);
 
-	if($oValidator->passes()){
+	//if($oValidator->passes()){
 		//update user detail
 
-		$oUser = User::find($id);
-		$oUser->fill(Input::all());
-		$oUser->save();
+		//$oUser = User::find($id);
+		//$oUser->fill(Input::all());
+		//$oUser->save();
 
 
 		//redirect to user page
-		return Redirect::to("users/".$id);
+		//return Redirect::to("users/".$id);
 
 
-	}else{
+	//}else{
 		//redirect to editUserDetails with sticky data input and errors
-		return Redirect::to('users/'.$id.'/edit')
-							->withErrors($oValidator)
-								->withInput(); //session flash data (old input)
-	}
+		//return Redirect::to('users/'.$id.'/edit')
+							//->withErrors($oValidator)
+								//->withInput(); //session flash data (old input)
+	
 
 
-})->before("auth");
+//})->before("auth");
 
+Route::resource('users', 'UserController');
+//this is so you dont have to manage your route anymore. next step protect these actions on unauthorise access
 
 
 
