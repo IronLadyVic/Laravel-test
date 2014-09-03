@@ -7,7 +7,7 @@
  	@foreach($type->products as $product)
 			<article class="group">
 			<!-- //you have to create a path for the photo, becuase it is URL now you cant do a query string. -->
-				<img src="{{URL::to('products/'.$product->photo)}}" alt="">
+				<img src="{{URL::to('product-photo/'.$product->photo)}}" alt="">
 				<h4>{{$product->name}}</h4>
 				<p>{{$product->description}}</p>
 				<span class="price"><i class="icon-dollar"></i>{{$product->price}}</span>

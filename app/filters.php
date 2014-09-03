@@ -54,10 +54,10 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
+	if(Auth::guest())
 	{
 		//minupulate intended url if HTTP methods are not GET
-		if(Request::server("REQUEST_METHOD")=="GET"{
+		if(Request::server("REQUEST_METHOD")=="GET"){
 			//asking the server on the request what is the html method you are dealing with here? it is a GET. REcored the current URL ie. users/2. 
 			//so once they are logging in and logged in, they are redirected back tothe intended URL.
 			Session::put("url.intended",URL::current()); //the intended URL is flash data and saved into the Session
@@ -67,10 +67,27 @@ Route::filter('auth', function()
 
 		}
 
-			return Redirect::guest('login');
-		}
+			return Redirect::to('login');
 	}
 });
+
+//this is for if user is not admin then kick them out
+Route::filter('admin', function() 
+{
+		
+	//if(current user is not admin){
+		//redirect to login form
+	//}	
+
+	if(Auth::user()->admin == 0){
+		
+		return Redirect::to('login');
+	}
+
+
+
+});
+
 
 Route::filter('authorisation', function($route, $request, $authorisedID)
 

@@ -210,6 +210,62 @@ Route::post('orders',function(){
 })->before("auth");
 
 
+Route::get('products/create',function(){
+
+	// Types::all(); this will only give you a type object. you want the keys and values. values are the description of the format.
+
+	// $aTypes = array("1"=>"Goldfish", "3"=>"Tetra", "6"=>"Anglefish"); //hard coding this array
+	//now pss this arary into the form so you can create the select box in the view of newproductform
+
+	$aTypes = Type::lists("name","id"); //will let you turn an array of types into a list.
+
+	return View::make("newProductForm")->with('types',$aTypes); //binding the data outside of the form into it. 'types' is the variable passed into the form in View on the typeid
+
+
+})->before("auth|admin");
+
+Route::post('products',function(){
+
+	//validate input
+
+	$aRules = array(
+
+		'name'=>'required|unique:products',
+		'description'=>'required',
+		'photo'=>'required',
+		'price'=>'required|numeric'
+		);
+
+	$oValidator = Validator::make(Input::all(),$aRules); //if all validation passes then upload the photo
+
+	if($oValidator->passes()){
+
+		//upload photo
+		$sNewName = Input::get("name").".".Input::file("photo")->getClientOriginalExtension(); //now tell laravel to move the photo file from temporary location to new location
+		Input::file("photo")->move("product-photo/",$sNewName);
+
+		$aDetails = Input::all();
+		$aDetails['photo'] = $sNewName;
+
+		$oProduct = Product::create($aDetails); //use factory pattern on the product
+
+		return Redirect::to('types/'.$oProduct->type_id);
+
+	}else{
+		Redirect::to("products/create")->withErrors($oValidator)->withInput();
+	}
+
+	//if(it passes){
+	//create new product
+	// upload photo
+	//redirect to product list
+
+// }else{
+	// redirect back to New product page form with errors and sticky data
+//}
+
+});
+
 //Tokin, when you ask laravel to submit a form, it injects tokin and protects highjackers - filtering input. It is invisiable to us, but you can see it in view source.
 
 
