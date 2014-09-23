@@ -146,9 +146,19 @@ img{
 	border-bottom: thin dotted rgb(200,200,200);
 
 }
+.pagination{
+	text-align: center;
+}
 
+.pagination li{
+	display: inline-block;
+	width: 2em;
+	text-align: center;
+}
 
-
+.pagination li a{
+	padding: 0;
+}
 
 /* #Media Queries
 ================================================== */
