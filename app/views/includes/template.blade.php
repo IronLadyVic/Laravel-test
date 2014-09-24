@@ -88,7 +88,11 @@
 ================================================== -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 {{HTML::script("js/spin.js")}}
+{{HTML::script("js/jquery.history.js")}}
+{{HTML::script("js/jquery.jeditable.js")}}
 {{HTML::script("js/main.js")}}
+
+
 </body>
 </html>
 @endif

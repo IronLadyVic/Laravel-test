@@ -136,35 +136,48 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
-	////this is a PUT
+	////this is a update of all data the user edits printed out.
+		// return Input::all();
 
-	//validate data
-	$aRules = array(
-
-	"firstname" => 'required',
-	"lastname" => 'required',
-	"email" => 'required|email|unique:users,email,'.$id);
-
-	$oValidator = Validator::make(Input::all(),$aRules);
-
-	if($oValidator->passes()){
-		//update user detail
+		$sField = Input::get("field");
+		$sValue = Input::get("value");
 
 		$oUser = User::find($id);
-		$oUser->fill(Input::all());
+		$oUser->$sField = $sValue;
+
 		$oUser->save();
+		//return value that value is going to be used to be put back into place.
+
+		return $sValue;
+
+	////this is a PUT	
+	//validate data
+	// $aRules = array(
+
+	// "firstname" => 'required',
+	// "lastname" => 'required',
+	// "email" => 'required|email|unique:users,email,'.$id);
+
+	// $oValidator = Validator::make(Input::all(),$aRules);
+
+	// if($oValidator->passes()){
+	// 	//update user detail
+
+	// 	$oUser = User::find($id);
+	// 	$oUser->fill(Input::all());
+	// 	$oUser->save();
 
 
-		//redirect to user page
-		return Redirect::to("users/".$id);
+	// 	//redirect to user page
+	// 	return Redirect::to("users/".$id);
 
 
-	}else{
-		//redirect to editUserDetails with sticky data input and errors
-		return Redirect::to('users/'.$id.'/edit')
-							->withErrors($oValidator)
-								->withInput(); //session flash data (old input)
-	}
+	// }else{
+	// 	//redirect to editUserDetails with sticky data input and errors
+	// 	return Redirect::to('users/'.$id.'/edit')
+	// 						->withErrors($oValidator)
+	// 							->withInput(); //session flash data (old input)
+	// }
 
 	}
 
