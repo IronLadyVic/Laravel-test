@@ -66,7 +66,7 @@ $(function(){
 
 //----------------------------------edit user details--------------------------------//
 
-$("[data-editable]").on("click",function(){
+$("[data-editable]").on("click",function(){ //this [data-editiable] is the attribute to p in userDetails.blade.php
 
 	var url = window.location.href; //the current url- so at its current location
 	//we want to create a text area using json so user can update details. PUT
@@ -78,7 +78,7 @@ $("[data-editable]").on("click",function(){
 		type: "textarea",
 		submitdata:{
 			_method: "PUT",
-			field: $(this).data("editable")
+			field: $(this).data("data-editable") //this is the a created attribute
 		},
 		submit: "OK"
 

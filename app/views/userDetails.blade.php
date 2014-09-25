@@ -20,3 +20,5 @@
 
 
 @stop
+
+<!-- //we use data-editable to create a attribute and then in main.js turn it into a editable control -->
