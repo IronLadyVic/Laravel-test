@@ -90,7 +90,10 @@
 {{HTML::script("js/spin.js")}}
 {{HTML::script("js/jquery.history.js")}}
 {{HTML::script("js/jquery.jeditable.js")}}
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+{{HTML::script("js/cart.js")}}
 {{HTML::script("js/main.js")}}
+
 
 
 </body>

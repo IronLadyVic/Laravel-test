@@ -177,8 +177,11 @@ Route::post('orderlines',function(){
 });
 
 Route::get('cart',function(){
+	$aContents = Input::all(); //this is for testing.
 
-	return View::make("cart")->with('cart',Session::get('cart')); //'cart' comes from $oCart object and passed into the session to be stored into the view. 
+	// return $aContents;
+
+	return View::make("cart")->with('cartContents', $aContents); //'cart' comes from $oCart object and passed into the session to be stored into the view. 
 
 });
 

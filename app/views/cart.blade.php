@@ -11,7 +11,7 @@
 				<span><h4>Product</h4></span><span><h4>Price</h4></span><span><h4>Quantity</h4></span><span><h4>Subtotal</h4></span>
 			</div>
 			<?php $fTotal = 0 ?>
-			@foreach($cart->contents as $key=>$value)	
+			@foreach($cartContents as $key=>$value)	
 			<div>
 				<span>{{Product::find($key)->name}}</span>
 				<span>$ {{Product::find($key)->price}}</span>

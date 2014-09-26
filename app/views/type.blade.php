@@ -15,11 +15,11 @@
 				<p>{{$product->description}}</p>
 				<span class="price"><i class="icon-dollar"></i>{{$product->price}}</span>
 
-				{{Form::open(array('url'=>'orderlines','class'=>"addCartForm"))}}
+				<!-- {{Form::open(array('url'=>'orderlines','class'=>"addCartForm"))}} -->
 
 				{{Form::hidden("productID",$product->id)}}
 				
-				<button class="addtocart"><i class="icon-plus"></i></button>
+				<button class="addtocart" data-product="{{$product->id}}"><i class="icon-plus"></i></button>
 			</article>
 	@endforeach
 	<!-- this will create links which is a ul li -->

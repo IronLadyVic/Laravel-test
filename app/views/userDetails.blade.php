@@ -8,16 +8,19 @@
 	<p>{{{$user->username}}}</p> <!-- triple braces for htmlenities-->
 
 	<h4>First name:</h4>
-	<p data-editable="firstname">{{{$user->firstname}}}</p>
+	<div data-editable="firstname">{{$user->firstname}}</div>
 
 	<h4>Last name:</h4>
-	<p data-editable="lastname">{{{$user->lastname}}}</p>
+	<div data-editable="lastname">{{$user->lastname}}</div>
 
 	<h4>Email:</h4>
-	<p data-editable="email">{{{$user->email}}}</p>
+	<div data-editable="email">{{$user->email}}</div>
 
+
+	
 	<a href="{{URL::to('users/'.$user->id.'/edit')}}" class="button">Edit details</a>		
-
+	
+	<textarea></textarea>
 
 @stop
 
